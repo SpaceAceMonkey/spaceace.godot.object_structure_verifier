@@ -224,3 +224,9 @@ In the world structure definition, it is defined as `[opt:key:cells_metadata]`, 
 `[*:key] {... structure ...}` says "we don't care which keys are inside `[opt:key:cells_metadata]`, but the data for each of those keys must match this structure." At the same level as the wildcard is a named key, `no_dinner`. Inside of `no_dinner` we have another wildcard followeed by a key called `paths`, which is an array. In short, this says, "Match however many keys you want, and don't worry about the data, but there _must_ be a key called `paths` with an array data type."
 
 If you take it as a whole, you will see that `no_dinner` must match both the first wildcard key's structure, and also the one specifically named `no_dinner` The second wildcard stops us from having to type out the entire `border_images` structure a second time.
+
+&nbsp;
+
+## Further reading
+
+There is another fairly detailed set of examples in the comments of the `verify_json_structure()` function.

@@ -1,9 +1,5 @@
 extends Node
 
-# ToDo: Add a class variable to hold a debugger, rather than relying on a global jv instance.
-#     It will probably have to be setter-injected, because Godot is not intended to have
-#     parameters in new().
-
 enum KEY_TYPE {
 	NORMAL = 0,
 	ANY_KEY = 1,
@@ -98,15 +94,6 @@ func verify_json_structure(structure, object, result, path = []):
 	result.errors = [] if !("errors" in result) else result.errors
 	path = [] if typeof(path) != TYPE_ARRAY else path
 
-	# if typeof(object) != TYPE_DICTIONARY:
-	# 	result.errors.push_back(
-	# 		(
-	# 			"Verify_json_structure only works on Dictionaries (%d); argument of type %s provided, instead."
-	# 			% [typeof(TYPE_DICTIONARY), typeof(object)]
-	# 		)
-	# 	)
-	# 	result.error = ERR_INVALID_PARAMETER
-	# elif result.error == OK:
 	var keys = structure.keys()
 	for raw_key in keys:
 		var processed = self.process_key(raw_key)
@@ -162,13 +149,11 @@ func process_key(key):
 
 
 func handle_array_element(structure, object, raw_key, key, key_type, path, result):
-	# dh.d("Raw key %s; structure[key] %s" % [raw_key, structure])
 	var array_structure = (
 		structure[key][0] if key_type == self.KEY_TYPE.NORMAL && structure[key].size() > 0
 		else structure[raw_key][0] if key_type == self.KEY_TYPE.OPTIONAL && structure[raw_key].size() > 0
 		else null
 	)
-	# dh.d("\n\nRaw key %s\nkey %s\nstructure %s\nObject[key] %s\nObject %s" % [raw_key, key, array_structure, object[key], object])
 	var object_value_type = typeof(object[key])
 
 	if object_value_type != TYPE_ARRAY:
@@ -192,7 +177,6 @@ func handle_array_element(structure, object, raw_key, key, key_type, path, resul
 						% [key]
 					)
 				)
-				# This could be |= if ERR_* were powers of two
 				result.error = ERR_INVALID_DATA
 			else:
 				for array_item in object[key]:
