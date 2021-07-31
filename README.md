@@ -5,7 +5,7 @@ This code was written using [Godot](https://godotengine.org/) 3.3.2.stable, and 
 &nbsp;
 
 ## What it does
-This code allows you to verify that a Godo object (Dictionary) matches an
+This code allows you to verify that a Godo Dictionary matches an
 expected structure. This is useful, for example, when you are loading data from disk and want to make sure that what you loaded is valid.
 
 &nbsp;
