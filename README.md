@@ -114,84 +114,140 @@ expected structure. This is useful, for example, when you are loading data from 
 
 ## A partial example from a project of mine
 ```
-var WORLD_DATA_STRUCTURE = {
-    "world": {
-        "levels": [{
-            "board": {
-                "margins": {"left": null, "right": null, "top": null, "bottom": null},
-                "cell_size": { "x": null, "y": null },
-                "cell_margins": { "left": null, "right": null, "top": null, "bottom": null },
-                "blocks": {
-                    "[*:key]": { "weight": null },
-                },
-                "cells": [],
-                "[opt:key:cells_metadata]": [{
-                    "[*:key]": {
-                        "border_images": {
-                            "left": null
-                            , "right": null
-                            , "top": null
-                            , "bottom": null
-                        }
-                    },
-                    "no_dinner": {
-                        "border_images": {
-                            "[*:key]": null
-                        , "paths": []
-                        }
-                    },
-                }]
+{
+  "world": {
+    "levels": [
+      {
+        "board": {
+          "margins": {
+            "left": null,
+            "right": null,
+            "top": null,
+            "bottom": null
+          },
+          "cell_size": {
+            "x": null,
+            "y": null
+          },
+          "cell_margins": {
+            "left": null,
+            "right": null,
+            "top": null,
+            "bottom": null
+          },
+          "blocks": {
+            "[*:key]": {
+              "weight": null
             }
-        }]
-    }
-}
+          },
+          "cells": [
 
+          ],
+          "[opt:key:cells_metadata]": [
+            {
+              "[*:key]": {
+                "border_images": {
+                  "left": null,
+                  "right": null,
+                  "top": null,
+                  "bottom": null
+                }
+              }
+            },
+            {
+              "no_dinner": {
+                "border_images": {
+                  "[*:key]": null,
+                  "paths": []
+                }
+              }
+            }
+          ]
+        }
+      }
+    ]
+  }
+}
 
 var world = {
-    "world": {
-        "levels": [{
-            "board": {
-                "margins": { "left": 32, "right": 0, "top": 32, "bottom": 0 },
-                "cell_size": { "x": 64, "y": 64 },
-                "cell_margins": { "left": 4, "right": 4, "top": 4, "bottom": 4 },
-                "blocks": {
-                    "headphones_dude": { "weight": 2 },
-                    "no_dinner": { "weight": 4 },
-                    "right_arrow": { "weight": 2 },
-                    "three_stars": { "weight": 2 }
+  "world": {
+    "levels": [
+      {
+        "game_board": {
+          "background_image": "texture.jpg",
+          "margins": { "left": 16, "right": 16, "top": 16, "bottom": 16 },
+          "cell_size": { "x": 64, "y": 64 },
+          "cell_margins": { "left": 2, "right": 2, "top": 2, "bottom": 2 },
+          "blocks": {
+            "headphones_dude": { "weight": 2 },
+            "no_dinner": { "weight": 4 },
+            "right_arrow": { "weight": 2 },
+            "three_stars": { "weight": 2 }
+          },
+          "blocks_metadata": [
+            {
+              "headphones_dude": {
+                "What are these?": "These are samples of the type of metadata " +
+                "we might want to store for the blocks used on this level",
+                "border_images": {
+                  "left": "bar_left.png"
+                  , "right": "bar_right.png"
+                  , "top": "bar_top.png"
+                  , "bottom": "bar_bottom.png"
                 },
-                "cells": [
-                    [1, 1, 1, 1],
-                    [1, 1, 1, 1],
-                    [1, 1, 1, 1],
-                    [1, 1, 1, 1]
-                ],
-                "cells_metadata": [{
-                    "headphones_dude": {
-                        "border_images": {
-                            "left": "bar_left.png"
-                            , "right": "bar_right.png"
-                            , "top": "bar_top.png"
-                            , "bottom": "bar_bottom.png"
-                        }
-                    },
-                    "no_dinner": {
-                        "border_images": {
-                            "left": "bar_left.png"
-                            , "right": "bar_right.png"
-                            , "top": "bar_top.png"
-                            , "bottom": "bar_bottom.png"
-                            , "paths": [0, 0, 2, 0, 2, 0]
-                        }
-                    }
-                }]
+                "additional_meta": {
+                    "more metadata": []
+                }
+              }
+            },
+            {
+              "no_dinner": {
+                "border_images": {
+                  "left": "bar_left.png"
+                  , "right": "bar_right.png"
+                  , "top": "bar_top.png"
+                  , "bottom": "bar_bottom.png"
+                  , "paths": [0, 0, 2, 0, 2, 0]
+                }
+              }
             }
-        }]
-    }
+          ],
+          "cells": [
+            ["ANY", "ANY", "ANY", "ANY", "ANY"],
+            ["ANY", "ANY", "ANY", "ANY", "ANY"],
+            ["ANY", "ANY", "ANY", "ANY", "ANY"],
+            ["ANY", "ANY", "ANY", "ANY", "ANY"],
+            ["ANY", "ANY", "ANY", "ANY", "ANY"]
+          ],
+          "cells_metadata": [
+            {
+              "some_key": {
+                "border_images": {
+                  "left":null, "right":null, "top":null, "bottom":null
+                }
+              }
+            },
+            {
+              "no_dinner": {
+                "border_images": {
+                  "left":null, "right":null, "top":null, "bottom":null, "paths": []
+                }
+              }
+            }
+          ]
+        }
+      }
+    ]
+  }
 }
 
+
 var result = {}
-ObjectStructureVerifier.verify_json_structure(WORLD_DATA_STRUCTURE, world, result)
+ObjectStructureVerifier.verify_json_structure(
+    WORLD_DATA_STRUCTURE
+    , world
+    , result
+)
 DebugHandler.d("Result %s" % result)
 ```
 
@@ -202,26 +258,30 @@ DebugHandler.d("Result %s" % result)
 The most interesting thing to note about the example above is the `cells_metadata` key. Let's have another look at it.
 
 ```
-"[opt:key:cells_metadata]": [{
-    "[*:key]": {
-        "border_images": {
-            "left": null
-            , "right": null
-            , "top": null
-            , "bottom": null
+"[opt:key:cells_metadata]": [
+    {
+        "[*:key]": {
+            "border_images": {
+                "left": null,
+                "right": null,
+                "top": null,
+                "bottom": null
+            }
         }
     },
-    "no_dinner": {
-        "border_images": {
-            "[*:key]": null
-            , "paths": []
+    {
+        "no_dinner": {
+            "border_images": {
+                "[*:key]": null,
+                "paths": []
+            }
         }
-    },
-}]
+    }
+]
 ```
 In the world structure definition, it is defined as `[opt:key:cells_metadata]`, meaning it is optional. However, since the `cells_metadata` key does exist in the `world` Dictionary, it must conform to the definitions found inside the `[opt:key:cells_metadata]` key of the structure.
 
-`[*:key] {... structure ...}` says "we don't care which keys are inside `[opt:key:cells_metadata]`, but the data for each of those keys must match this structure." At the same level as the wildcard is a named key, `no_dinner`. Inside of `no_dinner` we have another wildcard followeed by a key called `paths`, which is an array. In short, this says, "Match however many keys you want, and don't worry about the data, but there _must_ be a key called `paths` with an array data type."
+`[*:key]: {... structure ...}` says "we don't care which keys are inside `[opt:key:cells_metadata]`, but the data for each of those keys must match this structure." At the same level as the wildcard is a named key, `no_dinner`. Inside of `no_dinner` we have another wildcard followed by a key called `paths`, which is an array. In short, this says, "Match however many keys you want, and don't worry about the data, but there _must_ be a key called `paths` with an array data type."
 
 If you take it as a whole, you will see that `no_dinner` must match both the first wildcard key's structure, and also the one specifically named `no_dinner` The second wildcard stops us from having to type out the entire `border_images` structure a second time.
 
